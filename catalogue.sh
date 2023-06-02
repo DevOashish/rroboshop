@@ -36,7 +36,7 @@ echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> system start <<<<<<<<<<<<<<<\e[0m"
 systemctl restart catalogue
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> copy mongodbrepo <<<<<<<<<<<<<<<\e[0m"
-cp mongodb.repo /etc/yum.repos.d/mongodb.repo
+cp /home/centos/rroboshop/mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> Install mongodb <<<<<<<<<<<<<<<\e[0m"
 yum install mongodb-org-shell -y
