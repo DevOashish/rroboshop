@@ -23,9 +23,6 @@ cd /app
 echo -e "\e[35m>>>>>>>>>>>>>>>>>>>> unzip in dir <<<<<<<<<<<<<<<\e[0m"
 unzip /tmp/cart.zip
 
-echo -e "\e[34m>>>>>>>>>>>>>>>>>>>> go to dir <<<<<<<<<<<<<<<\e[0m"
-cd /app
-
 echo -e "\e[35m>>>>>>>>>>>>>>>>>>>> install npm <<<<<<<<<<<<<<<\e[0m"
 npm install 
 
