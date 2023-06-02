@@ -32,7 +32,7 @@ echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> enable system <<<<<<<<<<<<<<<\e[0m"
 systemctl enable catalogue 
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> system start <<<<<<<<<<<<<<<\e[0m"
-systemctl start catalogue
+systemctl restart catalogue
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> copy mongodbrepo <<<<<<<<<<<<<<<\e[0m"
 cp mongodb.repo /etc/yum.repos.d/mongodb.repo
