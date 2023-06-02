@@ -30,7 +30,7 @@ echo -e "\e[35m>>>>>>>>>>>>>>>>>>>> install npm <<<<<<<<<<<<<<<\e[0m"
 npm install 
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> cp to cart service <<<<<<<<<<<<<<<\e[0m"
-cp cart.service /etc/systemd/system/cart.service
+cp /home/centos/rroboshop/cart.service /etc/systemd/system/cart.service
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> system enable and start <<<<<<<<<<<<<<<\e[0m"
 systemctl daemon-reload
