@@ -34,7 +34,7 @@ systemctl enable user
 systemctl restart user
 
 echo -e "\e[35m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
-cp /home/centos/rrobosshop/mongodb.repo /etc/yum.repos.d/mongodb.repo
+cp /home/centos/rroboshop/mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 
 
