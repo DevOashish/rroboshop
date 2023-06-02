@@ -23,12 +23,21 @@ echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
 unzip /tmp/user.zip
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
-systemctl daemon-reload
-systemctl enable user 
-systemctl start user
+npm install
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
-cp /home/centos/rroboshop/mongodb.repo /etc/yum.repos.d/mongodb.repo
+cp /home/centos/rroboshop/user.service /etc/systemd/user.service
+
+echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
+systemctl daemon-reload
+systemctl enable user 
+systemctl restart user
+
+echo -e "\e[31m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
+
+cp /home/centos/rrobosshop/mongodb.repo /etc/yum.repos.d/mongodb.repo
+
+
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
 yum install mongodb-org-shell -y
