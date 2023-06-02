@@ -30,6 +30,10 @@ echo -e "\e[36m>>>>>>>>> Load Schena <<<<<<<<\e[0m"
 mysql -h mysql-dev.devoash.tech -uroot -pRoboShop@1 < /app/schema/shipping.sql 
 
 
+echo -e "\e[36m>>>>>>>>> Install MYSQL <<<<<<<<\e[0m"
+cp /home/centos/rroboshop/shipping.service /etc/systemd/system/shipping.service 
+
+
 echo -e "\e[36m>>>>>>>>> Relaod and start shipping <<<<<<<<\e[0m"
 systemctl daemon-reload
 systemctl enable shipping 
