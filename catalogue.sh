@@ -24,7 +24,7 @@ echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> Install npm <<<<<<<<<<<<<<<\e[0m"
 npm install
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> copy file <<<<<<<<<<<<<<<\e[0m"
-cp catalogue.service /etc/systemd/system/catalogue.service
+cp /home/centos/rroboshop/catalogue.service /etc/systemd/system/catalogue.service
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> system reload <<<<<<<<<<<<<<<\e[0m"
 systemctl daemon-reload
