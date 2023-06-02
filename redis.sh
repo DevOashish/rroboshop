@@ -8,7 +8,7 @@ echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> Install Redis <<<<<<<<<<<<<<<\e[0m"
 yum install redis -y
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> Install Redis <<<<<<<<<<<<<<<\e[0m"
-sed -i -e 's|127.0.0.1|0.0.0.0|' /etc/redis.config
+sed -i -e 's|127.0.0.1|0.0.0.0|' /etc/redis.conf
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> enable and start Redis <<<<<<<<<<<<<<<\e[0m"
 systemctl enable redis 
