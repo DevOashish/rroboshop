@@ -28,7 +28,7 @@ systemctl enable user
 systemctl start user
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
-cp mongodb.repo /etc/yum.repos.d/mongodb.repo
+cp /home/centos/rroboshop/mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
 yum install mongodb-org-shell -y
