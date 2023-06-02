@@ -43,4 +43,4 @@ echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
 yum install mongodb-org-shell -y
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> remove app <<<<<<<<<<<<<<<\e[0m"
-mongo --host mongodb-dev.devoash.tech </app/schema/catalogue.js
+mongo --host mongodb-dev.devoash.tech </app/schema/user.js
