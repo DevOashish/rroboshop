@@ -8,6 +8,7 @@ echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> Add user roboshop <<<<<<<<<<<<<<<\e[0m"
 useradd roboshop
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> create directory app <<<<<<<<<<<<<<<\e[0m"
+rm -rf /app
 mkdir /app 
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> creat zip file <<<<<<<<<<<<<<<\e[0m"
