@@ -20,7 +20,6 @@ unzip /tmp/user.zip
 
 echo -e "\e[36m>>>>>>>>> Install NodeJS Dependencies <<<<<<<<\e[0m"
 npm install
-cp user.service /etc/systemd/system/user.service
 
 echo -e "\e[36m>>>>>>>>> Create Application Directory <<<<<<<<\e[0m"
 cp /home/centos/rroboshop/user.service /etc/systemd/system/user.service
