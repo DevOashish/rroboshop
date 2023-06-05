@@ -28,12 +28,11 @@ cp /home/centos/rroboshop/user.service /etc/systemd/system/user.service
 echo -e "\e[36m>>>>>>>>> Start User Service <<<<<<<<\e[0m"
 systemctl daemon-reload
 systemctl enable user
-systemctl start user
 systemctl restart user
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo
 echo -e "\e[36m>>>>>>>>> Copy MongoDB repo <<<<<<<<\e[0m"
-cp /home/centos/rroboshop/mongo.repo /etc/yum.repos.d/mongo.repo
+cp /home/centos/rroboshop/mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 echo -e "\e[36m>>>>>>>>> Install MongoDB Client <<<<<<<<\e[0m"
 yum install mongodb-org-shell -y
