@@ -1,5 +1,5 @@
 [Unit]
-Description = Dispatch Service
+Description = dispatch Service
 [Service]
 User=roboshop
 Environment=AMQP_HOST=rabbitmq-dev.devoash.tech
