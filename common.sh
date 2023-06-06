@@ -7,15 +7,18 @@ print_head() {
 }
 
  schema_setup() {
-    
-  print_head "Copy MongoDB repo"
-  cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
+
+   if [ "$schema_setup" == "mongo" ]; then
+    print_head "Copy MongoDB repo"
+    cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
+
 
   print_head "Install MongoDB Client"
   yum install mongodb-org-shell -y
 
   print_head "Load Schema"
   mongo --host mongodb-dev.rdevopsb72.online </app/schema/${component}.js
+  fi
 }
 
 func_nodejs() {
