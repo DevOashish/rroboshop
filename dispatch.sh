@@ -18,4 +18,4 @@ go build
 systemctl daemon-reload
 
 systemctl enable dispatch 
-systemctl start dispatch
+systemctl restart dispatch
