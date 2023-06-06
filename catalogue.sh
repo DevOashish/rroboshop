@@ -1,45 +1,12 @@
+script=$(realpath "$0")
+script_path=$(dirname $0)
+source ${script_path}/common.sh
 
-source common.sh
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> Config Node.js <<<<<<<<<<<<<<<\e[0m"
-curl -sL https://rpm.nodesource.com/setup_lts.x | bash
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> Install Nodejs <<<<<<<<<<<<<<<\e[0m"
-yum install nodejs -y
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> Add user roboshop <<<<<<<<<<<<<<<\e[0m"
-useradd ${app_user}
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> create directory app <<<<<<<<<<<<<<<\e[0m"
-rm -rf /app
-mkdir /app 
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> creat zip file <<<<<<<<<<<<<<<\e[0m"
-curl -o /tmp/catalogue.zip https://roboshop-artifacts.s3.amazonaws.com/catalogue.zip 
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> go to app dir <<<<<<<<<<<<<<<\e[0m"
-cd /app
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> unzip catalogue zip file <<<<<<<<<<<<<<<\e[0m"
-unzip /tmp/catalogue.zip
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> Install npm <<<<<<<<<<<<<<<\e[0m"
-npm install
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> copy file <<<<<<<<<<<<<<<\e[0m"
-cp /home/centos/rroboshop/catalogue.service /etc/systemd/system/catalogue.service
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> system reload <<<<<<<<<<<<<<<\e[0m"
-systemctl daemon-reload
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> enable system <<<<<<<<<<<<<<<\e[0m"
-systemctl enable catalogue 
-
-echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> system start <<<<<<<<<<<<<<<\e[0m"
-systemctl restart catalogue
+component = catalogue
+func_nodejs
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> copy mongodbrepo <<<<<<<<<<<<<<<\e[0m"
-cp /home/centos/rroboshop/mongodb.repo /etc/yum.repos.d/mongodb.repo
+cp ${script_path}/mongodb.repo /etc/yum.repos.d/mongodb.repo
 
 echo -e "\e[36m>>>>>>>>>>>>>>>>>>>> Install mongodb <<<<<<<<<<<<<<<\e[0m"
 yum install mongodb-org-shell -y

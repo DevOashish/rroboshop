@@ -1,4 +1,6 @@
-source common.sh
+script=$(realpath "$0")
+script_path=$(dirname $0)
+source ${script_path}/common.sh
 
 echo -e "\e[36m>>>>>>>>> Install Maven <<<<<<<<\e[0m"
 yum install maven -y
@@ -34,7 +36,7 @@ mysql -h mysql-dev.devoash.tech -uroot -pRoboShop@1 < /app/schema/shipping.sql
 
 
 echo -e "\e[36m>>>>>>>>> Install MYSQL <<<<<<<<\e[0m"
-cp /home/centos/rroboshop/shipping.service /etc/systemd/system/shipping.service 
+cp ${script_path}/shipping.service /etc/systemd/system/shipping.service 
 
 
 echo -e "\e[36m>>>>>>>>> Relaod and start shipping <<<<<<<<\e[0m"

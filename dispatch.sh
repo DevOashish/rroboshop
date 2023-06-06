@@ -1,4 +1,6 @@
-source common.sh 
+script=$(realpath "$0")
+script_path=$(dirname $0)
+source ${script_path}/common.sh
 
 yum install golang -y
 
@@ -14,6 +16,7 @@ cd /app
 go mod init dispatch
 go get 
 go build
+cp ${script_path}/${component}.service /etc/systemd/system/$component.service
 
 systemctl daemon-reload
 
