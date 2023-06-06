@@ -17,5 +17,5 @@ go build
 
 systemctl daemon-reload
 
-systemctl enable dispatch 
-systemctl restart dispatch
+systemctl enable dispatch.service
+systemctl restart dispatch.service
