@@ -16,7 +16,9 @@ cd /app
 go mod init dispatch
 go get 
 go build
-cp ${script_path}/${component}.service /etc/systemd/system/$component.service
+
+cp /home/centos/rroboshop/dispatch.service /etc/systemd/system/dispatch.service
+
 
 systemctl daemon-reload
 
