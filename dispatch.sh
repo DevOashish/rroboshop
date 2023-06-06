@@ -14,6 +14,8 @@ cd /app
 go mod init dispatch
 go get 
 go build
+cp /home/centos/rroboshop/dispatch.service /etc/systemd/system/dispatch.service
+
 
 systemctl daemon-reload
 
