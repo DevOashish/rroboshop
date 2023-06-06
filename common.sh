@@ -2,37 +2,66 @@ app_user=roboshop
 script=$(realpath "$0")
 script_path=$(dirname "$script")
 
+print_head() {
+  echo -e "\e[35m>>>>>>>>> $1 <<<<<<<<\e[0m"
+}
+
+ schema_setup() {
+    
+  print_head "Copy MongoDB repo"
+  cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
+
+  print_head "Install MongoDB Client"
+  yum install mongodb-org-shell -y
+
+  print_head "Load Schema"
+  mongo --host mongodb-dev.rdevopsb72.online </app/schema/${component}.js
+}
+
 func_nodejs() {
-    echo -e "\e[36m>>>>>>>>> Configuring NodeJS repos <<<<<<<<\e[0m"
-     curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+  print_head "Configuring NodeJS repos"
+  curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
-     echo -e "\e[36m>>>>>>>>> Install NodeJS <<<<<<<<\e[0m"
-      yum install nodejs -y
+  print_head "Install NodeJS"
+  yum install nodejs -y
 
-      echo -e "\e[36m>>>>>>>>> Add Application User <<<<<<<<\e[0m"
-      useradd ${app_user}
+  print_head "Add Application User"
+   useradd ${app_user}
+
+  print_head "Create Application Directory"
+   rm -rf /app
+   mkdir /app
+
+   print_head "Download App Content"
+   curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
+   cd /app
+
+   print_head "Unzip App Content"
+   unzip /tmp/${component}.zip
 
 
-          echo -e "\e[36m>>>>>>>>> Create Application Directory <<<<<<<<\e[0m"
-          rm -rf /app
-          mkdir /app
+   print_head "Install NodeJS Dependencies"
+    npm install
 
-           echo -e "\e[36m>>>>>>>>> Download App Content <<<<<<<<\e[0m"
-            curl -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip
-           cd /app
+   print_head "Create Application Directory"
+   cp ${script_path}/${component}.service /etc/systemd/system/$component.service
 
-            echo -e "\e[36m>>>>>>>>> Unzip App Content <<<<<<<<\e[0m"
-            unzip /tmp/${component}.zip
+   print_head "Start Cart Service"
+   systemctl daemon-reload
+   systemctl enable ${component}
+   systemctl restart ${component}
+}
+schema_setup() {
+  echo -e "\e[36m>>>>>>>>> Copy MongoDB repo <<<<<<<<\e[0m"
+  cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
+
+  echo -e "\e[36m>>>>>>>>> Install MongoDB Client <<<<<<<<\e[0m"
+  yum install mongodb-org-shell -y
+
+  echo -e "\e[36m>>>>>>>>> Load Schema <<<<<<<<\e[0m"
+  mongo --host mongodb-dev.rdevopsb72.online </app/schema/${component}.js
 
 
-            echo -e "\e[36m>>>>>>>>> Install NodeJS Dependencies <<<<<<<<\e[0m"
-            npm install
+schema_setup
 
-           echo -e "\e[36m>>>>>>>>> Create Application Directory <<<<<<<<\e[0m"
-           cp ${script_path}/${component}.service /etc/systemd/system/$component.service
-
-            echo -e "\e[36m>>>>>>>>> Start Cart Service <<<<<<<<\e[0m"
-            systemctl daemon-reload
-            systemctl enable ${component}
-           systemctl restart ${component}
 }
