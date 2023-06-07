@@ -17,7 +17,7 @@ print_head() {
      yum install mongodb-org-shell -y
 
      print_head "Load Schema"
-     mongo --host mongodb-dev.devoash.tech </app/schema/${component}.js
+     mongo --host mongodb-dev.devoash.tech </app/schema/${component}.js  &>>$log_file
   fi
 }
 
