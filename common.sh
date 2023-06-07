@@ -13,11 +13,11 @@ print_head() {
     cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
 
 
-  print_head "Install MongoDB Client"
-  yum install mongodb-org-shell -y
+     print_head "Install MongoDB Client"
+     yum install mongodb-org-shell -y
 
-  print_head "Load Schema"
-  mongo --host mongodb-dev.rdevopsb72.online </app/schema/${component}.js
+     print_head "Load Schema"
+     mongo --host mongodb-dev.devoash.tech </app/schema/${component}.js
   fi
 }
 
@@ -25,8 +25,16 @@ func_nodejs() {
   print_head "Configuring NodeJS repos"
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
+  if [ "${schema_setup}" == "mysql" ]; then
+    print_head "Install MySQL Client"
+    yum install mysql -y
+
   print_head "Install NodeJS"
   yum install nodejs -y
+  print_head "Load Schema"
+    mysql -h mysql-dev.devoash.tech -uroot -p${mysql_root_password} < /app/schema/shipping.sql
+  fi
+
 
   print_head "Add Application User"
    useradd ${app_user}
@@ -53,18 +61,28 @@ func_nodejs() {
    systemctl daemon-reload
    systemctl enable ${component}
    systemctl restart ${component}
+
+   schema_setup
+
 }
-schema_setup() {
-  echo -e "\e[36m>>>>>>>>> Copy MongoDB repo <<<<<<<<\e[0m"
-  cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
 
-  echo -e "\e[36m>>>>>>>>> Install MongoDB Client <<<<<<<<\e[0m"
-  yum install mongodb-org-shell -y
+func_java() {
 
-  echo -e "\e[36m>>>>>>>>> Load Schema <<<<<<<<\e[0m"
-  mongo --host mongodb-dev.rdevopsb72.online </app/schema/${component}.js
+yum install maven -y
 
+useradd ${app_user}
 
-schema_setup
+rm -rf /app
+mkdir /app
+
+curl -L -o /tmp/shipping.zip https://roboshop-artifacts.s3.amazonaws.com/shipping.zip 
+
+cd /app 
+unzip /tmp/shipping.zip
+
+cd /app 
+
+mvn clean package 
+mv target/shipping-1.0.jar shipping.jar 
 
 }

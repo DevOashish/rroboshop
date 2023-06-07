@@ -1,6 +1,12 @@
 script=$(realpath "$0")
-script_path=$(dirname $0)
+script_path=$(dirname "$script")
 source ${script_path}/common.sh
+
+if [ -z "$rabbitmq_appuser_password" ]; then
+  echo Input Roboshop Appuser Password Missing
+  exit 1
+fi
+
 curl -s https://packagecloud.io/install/repositories/rabbitmq/erlang/script.rpm.sh | bash
 yum install erlang -y
 curl -s https://packagecloud.io/install/repositories/rabbitmq/rabbitmq-server/script.rpm.sh | bash
