@@ -10,7 +10,7 @@ print_head() {
 
    if [ "$schema_setup" == "mongo" ]; then
     print_head "Copy MongoDB repo"
-    cp /mongo.repo /etc/yum.repos.d/mongo.repo
+    cp ${script_path}/mongo.repo /etc/yum.repos.d/mongo.repo
 
 
      print_head "Install MongoDB Client"
