@@ -25,16 +25,6 @@ func_nodejs() {
   print_head "Configuring NodeJS repos"
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash
 
-  # if [ "${schema_setup}" == "mysql" ]; then
-  #   print_head "Install MySQL Client"
-  #   yum install mysql -y
-
-  # print_head "Install NodeJS"
-  # yum install nodejs -y
-  # print_head "Load Schema"
-  #   mysql -h mysql-dev.devoash.tech -uroot -p${mysql_root_password} < /app/schema/shipping.sql
-  # fi
-
 
   print_head "Add Application User"
    useradd ${app_user}
@@ -86,3 +76,14 @@ func_nodejs() {
 # mv target/shipping-1.0.jar shipping.jar 
 
 # }
+
+
+  # if [ "${schema_setup}" == "mysql" ]; then
+  #   print_head "Install MySQL Client"
+  #   yum install mysql -y
+
+  # print_head "Install NodeJS"
+  # yum install nodejs -y
+  # print_head "Load Schema"
+  #   mysql -h mysql-dev.devoash.tech -uroot -p${mysql_root_password} < /app/schema/shipping.sql
+  # fi
