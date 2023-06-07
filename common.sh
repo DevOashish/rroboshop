@@ -48,7 +48,7 @@ func_nodejs() {
    npm install
 
    print_head "Create Application Directory"
-   cp ${script_path}/${component}.service /etc/systemd/system/$component.service
+   cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
 
    print_head "Start Cart Service"
    systemctl daemon-reload
