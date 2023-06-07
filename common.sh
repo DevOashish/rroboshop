@@ -1,6 +1,6 @@
 app_user=roboshop
 script=$(realpath "$0")
-script_path=$(dirname $0)
+script_path=$(dirname "$script")
 
 print_head() {
   echo -e "\e[35m>>>>>>>>> $1 <<<<<<<<\e[0m"
@@ -17,13 +17,16 @@ print_head() {
      yum install mongodb-org-shell -y
 
      print_head "Load Schema"
-     mongo --host mongodb-dev.devoash.tech </app/schema/${component}.js  &>>$log_file
+     mongo --host mongodb-dev.devoash.tech </app/schema/${component}.js 
   fi
 }
 
 func_nodejs() {
   print_head "Configuring NodeJS repos"
   curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+
+  print_head "Install NodeJS"
+  yum install nodejs -y
 
 
   print_head "Add Application User"
@@ -42,7 +45,7 @@ func_nodejs() {
 
 
    print_head "Install NodeJS Dependencies"
-    npm install
+   npm install
 
    print_head "Create Application Directory"
    cp ${script_path}/${component}.service /etc/systemd/system/$component.service
