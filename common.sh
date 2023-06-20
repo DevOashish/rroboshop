@@ -1,12 +1,12 @@
 app_user=roboshop
 script=$(realpath "$0")
 script_path=$(dirname "$script")
-log_file=/tmp/rroboshop.log\
+log_file=/tmp/rroboshop.log
 # rm -f $log_file
 
 print_head() {
   echo -e "\e[35m>>>>>>>>> $1 <<<<<<<<\e[0m"
-    echo -e "\e[35m>>>>>>>>> $1 <<<<<<<<\e[0m" &>>$log_file
+  echo -e "\e[35m>>>>>>>>> $1 <<<<<<<<\e[0m" &>>$log_file
 
 }
 
@@ -106,9 +106,7 @@ func_nodejs() {
   yum install nodejs -y &>>$log_file
    func_status_check $?
 
-
- 
-  func_mscommonsteps
+   func_mscommonsteps
 
    print_head "Install NodeJS Dependencies"
    npm install &>>$log_file
