@@ -1,7 +1,7 @@
 app_user=roboshop
 script=$(realpath "$0")
 script_path=$(dirname "$script")
-log_file=/tmp/rroboshop.og
+log_file=/tmp/rroboshop.log
 
 print_head() {
   echo -e "\e[35m>>>>>>>>> $1 <<<<<<<<\e[0m"
