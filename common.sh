@@ -55,7 +55,7 @@ func_mscommonsteps() {
 
   print_head "Add user"
   id ${app_user} &>>/tmp/rroboshop.log
-  if [ $? -eq 0 ] ; then
+  if [ $? -ne 0 ] ; then
    useradd ${app_user} &>>/tmp/rroboshop.log
   fi
   func_status_check $?
