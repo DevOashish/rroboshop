@@ -50,12 +50,13 @@ print_head() {
     fi
 }
 # Here mscommonsteps = microservices common steps
+
 func_mscommonsteps() {
 
   print_head "Add user"
-  id ${app_user} &>>$log_file
+  id ${app_user} &>>/tmp/rroboshop.log
   if [ $? -eq 0 ] ; then
-   useradd ${app_user} &>>$log_file
+   useradd ${app_user} &>>/tmp/rroboshop.log
   fi
   func_status_check $?
 
