@@ -1,7 +1,8 @@
 app_user=roboshop
 script=$(realpath "$0")
 script_path=$(dirname "$script")
-log_file=/tmp/rroboshop.log
+log_file=/tmp/rroboshop.log\
+# rm -f $log_file
 
 print_head() {
   echo -e "\e[35m>>>>>>>>> $1 <<<<<<<<\e[0m"
@@ -14,7 +15,7 @@ print_head() {
 
   echo -e "\e[32msuccess\e[0m"
   else
-   echo -e "\e[31msuccess\e[0m"
+   echo -e "\e[31mfailure\e[0m"
    echo "Refer the log file /tmp/rroboshop.log for more information"
    exit 1
    fi
@@ -49,14 +50,13 @@ print_head() {
     
     fi
 }
-# Here mscommonsteps = microservices common steps
 
 func_mscommonsteps() {
 
   print_head "Add user"
   id ${app_user} &>>/tmp/rroboshop.log
   if [ $? -ne 0 ] ; then
-   useradd ${app_user} &>>/tmp/rroboshop.log
+    useradd ${app_user} &>>/tmp/rroboshop.log
   fi
   func_status_check $?
 
