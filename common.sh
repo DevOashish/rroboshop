@@ -72,7 +72,7 @@ func_mscommonsteps() {
 
      print_head "unzip app content"
      cd /app &>>$log_file
-     unzip /tmp/${component}.zip
+     unzip /tmp/${component}.zip &>>$log_file
      func_status_check $?
 
 }
