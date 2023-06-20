@@ -5,6 +5,8 @@ log_file=/tmp/rroboshop.log
 
 print_head() {
   echo -e "\e[35m>>>>>>>>> $1 <<<<<<<<\e[0m"
+    echo -e "\e[35m>>>>>>>>> $1 <<<<<<<<\e[0m" &>>$log_file
+
 }
 
  func_status_check() {
@@ -71,7 +73,7 @@ func_mscommonsteps() {
      print_head "unzip app content"
      cd /app &>>$log_file
      unzip /tmp/${component}.zip
-      func_status_check $?
+     func_status_check $?
 
 }
 
