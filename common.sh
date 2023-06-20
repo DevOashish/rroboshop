@@ -54,8 +54,10 @@ print_head() {
 func_mscommonsteps() {
 
   print_head "Add user"
+  id ${app_user} &>>$log_file
+  if [ $? -eq 0 ] ; then
    useradd ${app_user} &>>$log_file
-
+  fi
   func_status_check $?
 
 
