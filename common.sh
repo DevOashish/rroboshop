@@ -1,6 +1,7 @@
 app_user=roboshop
 script=$(realpath "$0")
 script_path=$(dirname "$script")
+log_file=/tmp/rroboshop.og
 
 print_head() {
   echo -e "\e[35m>>>>>>>>> $1 <<<<<<<<\e[0m"
@@ -12,28 +13,27 @@ print_head() {
   echo -e "\e[32msuccess\e[0m"
   else
    echo -e "\e[31msuccess\e[0m"
+   echo "Refer the log file /tmp/rroboshop.log for more information"
    exit 1
    fi
-
-
- }
+}
 
  schema_setup() {
 
    if [ "$schema_setup" == "mongo" ]; then
     print_head "Copy MongoDB repo"
-    cp ${script_path}/mongodb.repo /etc/yum.repos.d/mongodb.repo
+    cp ${script_path}/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>$log_file
     func_status_check $?
 
 
 
      print_head "Install MongoDB Client"
-     yum install mongodb-org-shell -y
-    func_status_check $?
+     yum install mongodb-org-shell -y &>>$log_file
+     func_status_check $?
 
 
      print_head "Load Schema"
-     mongo --host mongodb-dev.devoash.tech </app/schema/${component}.js 
+     mongo --host mongodb-dev.devoash.tech </app/schema/${component}.js &>>$log_file
     func_status_check $?
 
   fi
@@ -41,36 +41,36 @@ print_head() {
   if [ "$schema_setup" == "mqsql" ]; then
  
      print_head "Install MySQL Client"
-     yum install mysql -y
+     yum install mysql -y &>>$log_file
      func_status_check $?
        
     print_head "Load Schema"
-    mysql -h mysql-dev.devoash.tech -uroot -p${mysql_root_password} < /app/schema/${component}.sql
+    mysql -h mysql-dev.devoash.tech -uroot -p${mysql_root_password} < /app/schema/${component}.sql &>>$log_file
     func_status_check $?
     
     fi
-
 }
 
 func_mscommonsteps() {
 
   print_head "Add user"
-   useradd ${app_user}
+   useradd ${app_user} &>>$log_file
+
   func_status_check $?
 
 
    print_head "remove and create app dir"
-    rm -rf /app
-    mkdir /app
+    rm -rf /app &>>$log_file
+    mkdir /app &>>$log_file
     func_status_check $?
 
     print_head "Download app content"
-    curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip 
+    curl -L -o /tmp/${component}.zip https://roboshop-artifacts.s3.amazonaws.com/${component}.zip &>>$log_file
      func_status_check $?
 
 
      print_head "unzip app content"
-     cd /app 
+     cd /app &>>$log_file
      unzip /tmp/${component}.zip
       func_status_check $?
 
@@ -78,15 +78,15 @@ func_mscommonsteps() {
 
 func_systemd_service(){
   print_head "apth copy"
-  cp ${script_path}/${component}.service /etc/systemd/system/${component}.service
+  cp ${script_path}/${component}.service /etc/systemd/system/${component}.service &>>$log_file
    func_status_check $?
 
 
  print_head "system start and reload ${component} services"
 
-     systemctl daemon-reload
-     systemctl enable ${component}
-     systemctl restart ${component}
+     systemctl daemon-reload &>>$log_file
+     systemctl enable ${component} &>>$log_file
+     systemctl restart ${component} &>>$log_file
       func_status_check $?
 
 
@@ -96,12 +96,12 @@ func_systemd_service(){
 
 func_nodejs() {
   print_head "Configuring NodeJS repos"
-  curl -sL https://rpm.nodesource.com/setup_lts.x | bash
+  curl -sL https://rpm.nodesource.com/setup_lts.x | bash &>>$log_file
    func_status_check $?
 
 
   print_head "Install NodeJS"
-  yum install nodejs -y
+  yum install nodejs -y &>>$log_file
    func_status_check $?
 
 
@@ -109,14 +109,13 @@ func_nodejs() {
   func_mscommonsteps
 
    print_head "Install NodeJS Dependencies"
-   npm install
+   npm install &>>$log_file
     func_status_check $?
-
-
-
-   func_systemd_service
+ 
 
    schema_setup
+   
+   func_systemd_service
 
 }
 
@@ -124,21 +123,19 @@ func_java() {
 
 
 print_head "Install Maven"
-yum install maven -y
+yum install maven -y &>>$log_file
 
  func_status_check $?
 
-
- 
  
  func_mscommonsteps
 
   print_head "Install maven Dependencies"
-  mvn clean package 
+  mvn clean package  &>>$log_file
 
  func_status_check $?
 
-mv target/${component}-1.0.jar ${component}.jar 
+mv target/${component}-1.0.jar ${component}.jar  &>>$log_file
 
 
   schema_setup
