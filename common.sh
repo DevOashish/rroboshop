@@ -137,10 +137,9 @@ yum install maven -y &>>$log_file
 
 mv target/${component}-1.0.jar ${component}.jar  &>>$log_file
 
+schema_setup
 
-  schema_setup
-
-  func_systemd_service
+func_systemd_service
   
   }
   
