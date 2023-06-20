@@ -25,14 +25,11 @@ print_head() {
     cp ${script_path}/mongodb.repo /etc/yum.repos.d/mongodb.repo &>>$log_file
     func_status_check $?
 
-
-
      print_head "Install MongoDB Client"
      yum install mongodb-org-shell -y &>>$log_file
      func_status_check $?
 
-
-     print_head "Load Schema"
+    print_head "Load Schema"
      mongo --host mongodb-dev.devoash.tech </app/schema/${component}.js &>>$log_file
     func_status_check $?
 
@@ -50,7 +47,7 @@ print_head() {
     
     fi
 }
-
+# Here mscommonsteps = microservices common steps
 func_mscommonsteps() {
 
   print_head "Add user"
@@ -144,4 +141,25 @@ mv target/${component}-1.0.jar ${component}.jar  &>>$log_file
 
   func_systemd_service
   
+  }
+  
+  func_python() { 
+  
+  print_head "Install Python"
+  yum install python36 gcc python3-devel -y &>>$log_file
+  func_stat_check $?
+
+  func_mscommonsteps
+
+  print_head "Install Python Dependencies"
+  pip3.6 install -r requirements.txt &>>$log_file
+  func_stat_check $?
+
+  print_head "Update Passwords in System Service file"
+  sed -i -e "s|rabbitmq_appuser_password|${rabbitmq_appuser_password}|" ${script_path}/payment.service &>>$log_file
+  func_stat_check $?
+
+  func_systemd_service
+
+
   }
